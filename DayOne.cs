@@ -45,7 +45,10 @@ string[] readInput(string filePath)
     return linesArray;
 }
 
+void runDayOne()
+{
+    string[] inputs = readInput("inputs.txt");
+    int result = processRotations(50, inputs);
+    Console.WriteLine(result);
+}
 
-string[] inputs = readInput("inputs.txt");
-int result = processRotations(50, inputs);
-Console.WriteLine(result);
