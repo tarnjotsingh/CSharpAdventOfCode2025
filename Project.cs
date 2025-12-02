@@ -8,33 +8,6 @@ using System.Collections;
 // If number goes below 0, then start at 99 backwards
 // If number goes above 99, then start from 0 onwards
 
-int minVal = 0;
-int maxVal = 99;
-
-
-int turnLeft(int val, int turnVal)
-{
-    int g = turnVal / maxVal;
-    double f = ((((double)turnVal / maxVal)) - g) * maxVal;
-    int result = val == turnVal ? 0 : val - (int)f;
-    if(result < minVal)
-        return result + (maxVal + 1);
-    else
-        return result;
-
-}
-
-int turnRight(int val, int turnVal)
-{
-    int g = turnVal / maxVal;
-    double f = ((((double)turnVal / maxVal)) - g) * maxVal;
-    int result = val == turnVal ? 0 : val + (int)f;
-    if(result > maxVal)
-        return result - (maxVal + 1);
-    else
-        return result;
-}
-
 int rotateDial(int val, String rotate)
 {
     String turnDir = rotate.Substring(0, 1);
@@ -43,9 +16,9 @@ int rotateDial(int val, String rotate)
     switch(turnDir)
     {
         case "L":
-            return turnLeft(val, turnVal);
+            return (val - turnVal) % 100;
         case "R":
-            return turnRight(val, turnVal);
+            return (val + turnVal) % 100;
         default:
             throw new ArgumentException("Invalid turn value.");
     }
