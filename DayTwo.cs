@@ -4,18 +4,28 @@ public class DayTwo()
 {
     bool HasRepeatedPattern(long testVal)
     {
-        // If the value has an odd number of digits, then it automatically passes.
         string stringVal = testVal.ToString();
-        if (stringVal.Length % 2 != 0)
+
+        if (stringVal.Length == 1)
             return false;
-        else
+        // Iterate over to see if a given pattern matches?
+        for(int i = 1; i <= stringVal.Length / 2; i++)
         {
-            string firstString = stringVal.Substring(0, stringVal.Length / 2);
-            string secondString = stringVal.Substring(stringVal.Length / 2);
-            return firstString.Equals(secondString);
+            string subStr = stringVal.Substring(0, i);
+
+            // Build a potential pattern and test it against the actual value.
+            // If val has length 6 and current substring is length 2. Do 6 / 2 which is 3. Repeat string 3 times to build new string.
+            string testStr = "";
+            int size = stringVal.Length / subStr.Length;
+            for (int j = 0; j <= size -1; j++)
+                testStr += subStr;
+
+            if(testStr.Equals(stringVal))
+                return true;
         }
+        return false;
     }
-    // Process full id pair 11111-22222
+
     List<Int64> CheckInvalidIds(string susId)
     {
         List<Int64> splitIds = susId.Split("-").Select(s => Int64.Parse(s)).ToList();
@@ -32,7 +42,7 @@ public class DayTwo()
     {
         string fileText = File.ReadAllText(filePath);
         string[] linesArray = fileText.Split(
-            new string[] { "\r\n", "\r", "\n" },
+            ["\r\n", "\r", "\n"],
             StringSplitOptions.RemoveEmptyEntries
         );
         return linesArray[0];

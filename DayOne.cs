@@ -11,10 +11,10 @@ using System.Collections;
 // If number goes above 99, then start from 0 onwards
 
 public class DayOne {
-    int RotateDial(int val, String rotate)
+    int RotateDial(int val, string rotate)
     {
-        String turnDir = rotate.Substring(0, 1);
-        int turnVal = Int32.Parse(rotate.Substring(1));
+        string turnDir = rotate.Substring(0, 1);
+        int turnVal = int.Parse(rotate.Substring(1));
 
         switch(turnDir)
         {
@@ -42,7 +42,7 @@ public class DayOne {
     {
         string fileText = File.ReadAllText(filePath);
         string[] linesArray = fileText.Split(
-            new string[] { "\r\n", "\r", "\n" },
+            ["\r\n", "\r", "\n"],
             StringSplitOptions.RemoveEmptyEntries
         );
         return linesArray;
@@ -53,5 +53,11 @@ public class DayOne {
         string[] inputs = ReadInput("inputs/dayone/inputs.txt");
         int result = ProcessRotations(50, inputs);
         Console.WriteLine(result);
+    }
+
+    static void Main()
+    {
+        DayOne dayTwo = new DayOne();
+        dayTwo.Run();
     }
 }
