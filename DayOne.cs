@@ -15,22 +15,40 @@ public class DayOne {
         string turnDir = rotate.Substring(0, 1);
         int turnVal = int.Parse(rotate.Substring(1));
 
-        switch(turnDir) {
-            case "L":
-                return (val - turnVal) % 100;
-            case "R":
-                return (val + turnVal) % 100;
-            default:
-                throw new ArgumentException("Invalid turn value.");
-        }
+        return turnDir switch {
+            "L" => (val - turnVal) % 100,
+            "R" => (val + turnVal) % 100,
+            _ => throw new ArgumentException("Invalid turn value."),
+        };
+    }
+
+    int CountPastZero(int val, string rotate) {
+        string turnDir = rotate.Substring(0, 1);
+        int turnVal = int.Parse(rotate.Substring(1));
+
+        int countPastZero = 0;
+
+        if (turnDir.Equals("L"))
+            for (int i = val; i >= (val - turnVal); i--)
+              if (Math.Abs(i%100) == 0) countPastZero++;
+
+        if (turnDir.Equals("R"))
+            for (int j = val; j <= (val + turnVal); j++)
+              if (Math.Abs(j%100) == 0) countPastZero++;
+
+        if (countPastZero != 0 && val == 0)
+            countPastZero--;
+
+        return countPastZero;
     }
 
     int ProcessRotations(int startVal, string[] rotations) {
         int lastVal = startVal;
         int zeroCount = 0;
-        foreach(string r in rotations){
+        foreach(string r in rotations) {
+            zeroCount += CountPastZero(lastVal, r);
             lastVal = RotateDial(lastVal, r);
-            if(lastVal == 0) zeroCount++;
+            // if(lastVal == 0) zeroCount++;
         }
         return zeroCount;
     }
@@ -52,7 +70,7 @@ public class DayOne {
     }
 
     static void Main() {
-        DayOne dayTwo = new DayOne();
-        dayTwo.Run();
+        DayOne dayOne = new DayOne();
+        dayOne.Run();
     }
 }
