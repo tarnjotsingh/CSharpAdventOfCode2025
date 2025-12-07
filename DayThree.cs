@@ -11,35 +11,35 @@ public class DayThree() {
         return linesArray;
     }
 
-    int ProcessString(string input) {
-        // Trail through numbers in string, find highest value and split array at largest num.
-        // 818181[9] split -> 1111[2]111
-        // First number cannot be the last number
-        string allJoltages = input, joltage = "";
-        int largestNum = 0, numIndex = 0;
-        for (int j = 1; j >= 0; j--) {
-            for(int i = 0; i < allJoltages.Length; i++) {
-                int v = allJoltages[i] - '0';
-                if (v > largestNum && i != allJoltages.Length - j) {
+    long ProcessString(string input) {
+        string joltage = "";
+        int largestNum = 0, numIndex = 0, currentLrgIndex = 0;
+
+        // Need to run the main loop 12 times
+        // Need to limit which numbers can bee looped over based on how many of the 12 digits have been selected yet
+        for (int j = 11; j >= 0; j--) {
+            for(int i = numIndex; i < input.Length - j; i++) {
+                int v = input[i] - '0';
+                if (v > largestNum) {
                     largestNum = v;
-                    numIndex = i;
+                    currentLrgIndex = i;
                 }
             }
             joltage += largestNum;
+            numIndex = currentLrgIndex + 1;
             largestNum = 0;
-            allJoltages = allJoltages.Substring(numIndex + j);
         }
 
-        return int.Parse(joltage);
+        return Int64.Parse(joltage);
     }
 
     public void Run() {
         string[] inputs = ReadInput("inputs/daythree/inputs.txt");
-        List<int> joltages = [];
+        List<long> joltages = [];
         foreach (string s in inputs)
             joltages.Add(ProcessString(s));
 
-        int total = joltages.Sum();
+        long total = joltages.Sum();
         Console.WriteLine(total);
     }
 
