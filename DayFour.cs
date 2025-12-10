@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace AdventOfCode;
 
 public class DayFour() {
@@ -24,7 +26,7 @@ public class DayFour() {
 
             // Traverse down the 2d array
             for(int i = 0; i < currentPaperStack.Count; i++){
-                string crossIndicatedString = "";
+                StringBuilder removedRollsString = new();
                 int pickableThisRow = 0, strLen = currentPaperStack[0].Length;
 
                 // Traverse the tmpStack left to right.
@@ -51,21 +53,22 @@ public class DayFour() {
                         adjacentRolls--;
                         bool pickable = adjacentRolls < 4;
                         pickableThisRow += pickable ? 1 : 0;
-                        crossIndicatedString += pickable ? '.' : '@';
+                        removedRollsString.Append(pickable ? '.' : '@');
                     } else {
-                        crossIndicatedString += '.';
+                        removedRollsString.Append('.');
                     }
                 }
 
-                Console.Write(crossIndicatedString + " ");
+                Console.Write(removedRollsString + " ");
                 Console.WriteLine(pickableThisRow);
 
                 pickablePaperRolls += pickableThisRow;
-                updatedPaperStack.Add(crossIndicatedString);
-
+                updatedPaperStack.Add(removedRollsString.ToString());
             }
             currentPaperStack = updatedPaperStack;
             removedPaperRolls += pickablePaperRolls;
+
+            Console.WriteLine();
         } while(pickablePaperRolls != 0);
 
         return removedPaperRolls;
