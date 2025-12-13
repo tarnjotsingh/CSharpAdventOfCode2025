@@ -9,5 +9,8 @@ using AdventOfCode;
 // DayThree dayThree = new DayThree();
 // dayThree.Run();
 
-DayFour dayFour = new DayFour();
-dayFour.Run();
+// DayFour dayFour = new DayFour();
+// dayFour.Run();
+
+DayFive dayFive = new DayFive();
+dayFive.Run();

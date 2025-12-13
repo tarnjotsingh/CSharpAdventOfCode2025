@@ -2,10 +2,6 @@ namespace AdventOfCode;
 
 using System.Collections;
 
-// Program.cs
-// The execution starts here without explicit 'Main' method or 'class' definition.
-
-
 // Dial with number from 0 to 99
 // If number goes below 0, then start at 99 backwards
 // If number goes above 99, then start from 0 onwards
@@ -48,11 +44,9 @@ public class DayOne {
         foreach(string r in rotations) {
             zeroCount += CountPastZero(lastVal, r);
             lastVal = RotateDial(lastVal, r);
-            // if(lastVal == 0) zeroCount++;
         }
         return zeroCount;
     }
-
 
     string[] ReadInput(string filePath) {
         string fileText = File.ReadAllText(filePath);
